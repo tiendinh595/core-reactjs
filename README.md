@@ -3,4 +3,4 @@
 - npm run serve
 
 ``build production``
-npm run build
+- npm run build
