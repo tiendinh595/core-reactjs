@@ -9,6 +9,13 @@ class CommonStore {
     @action
     setToken(token) {
         this.token = token;
+        window.localStorage.setItem('jwt', token)
+    }
+
+    @action
+    removeToken() {
+        this.token = null;
+        window.localStorage.removeItem('jwt')
     }
 
     @action

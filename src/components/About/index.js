@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 import {Link} from 'react-router-dom'
-import WindowTitle from 'Components/Layput/WindowTitle'
+import WindowTitle from 'Components/Layout/WindowTitle'
 
 export default ()=>  {
     alert('about')

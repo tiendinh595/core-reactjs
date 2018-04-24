@@ -35,9 +35,9 @@ class AuthStore {
     login() {
         this.in_progress = true;
         this.is_loading_profile = true;
-        ApiCaller.post('/user/login', this.payload)
+        ApiCaller.post('/login', this.payload)
             .then((data)=>{
-                if(data.status === 200) {
+                if(data.code === 200) {
                     commonStore.setToken(data.data.token);
                     userStore.setCurrentUser(data.data);
                 }
@@ -49,6 +49,11 @@ class AuthStore {
             .finally(()=>this.is_loading_profile=false)
     }
 
+
+    @action
+    logout() {
+
+    }
 }
 
 export default new AuthStore();

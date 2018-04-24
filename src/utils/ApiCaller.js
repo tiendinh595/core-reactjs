@@ -4,12 +4,14 @@
 import axios from 'axios'
 import commonStore from 'Stores/CommonStore'
 import * as constants from 'Constants/index'
+import queryString from  'query-string'
 
 export function get(path, params = {}, cbUpload=(progressEvent)=>{}) {
     return request('get', path, params, cbUpload);
 }
 
 export function post(path, params = {}, cbUpload=(progressEvent)=>{}) {
+    console.log(cbUpload)
     return request('post', path, params, cbUpload);
 }
 
@@ -23,16 +25,21 @@ export function remove(path, params = {}, cbUpload=(progressEvent)=>{}) {
 
 function request(method, path, params = {}, cbUpload=(progressEvent)=>{}) {
     const url = path.indexOf('http') === -1 ? `${constants.API_URI}${path}` : path;
+    let data_send = new FormData();
+    for(let k in params) {
+        data_send.append(k, params[k])
+    }
     return axios({
         method: method,
         url: url,
-        data: params,
+        // data: queryString.stringify(params),
+        data: data_send,
         headers: {
-            Authorization: `Bearer ${commonStore.token}`,
-            // 'Access-Control-Allow-Origin': '*',
-            // 'Access-Control-Allow-Headers': '*',
-            // Accept: 'application/json',
-            // 'Content-Type': 'application/json',
+            Authorization: `${commonStore.token}`,
+            'Content-Type': 'application/x-www-form-urlencoded'
+            // 'Content-Type': 'application/x-www-form-urlencoded'
+
+            // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         onUploadProgress: function(progressEvent) {
             // var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );

@@ -1,0 +1,14 @@
+.select_box {
+    border-radius: 0;
+    background-image: none;
+}
+.select_wrapper {
+    position: relative;
+}
+.select_wrapper:after{
+    content: "▼";
+    position: absolute;
+    right: 7px;
+    top: 10px;
+    font-size: 11px;
+}

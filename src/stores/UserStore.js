@@ -1,5 +1,6 @@
 import {observable, computed, action} from 'mobx'
 import * as ApiCaller from 'Utils/ApiCaller'
+import {commonStore} from 'Stores'
 
 class UserStore {
 
@@ -9,12 +10,14 @@ class UserStore {
 
     @action
     pullUser() {
-        return ApiCaller.get('/user')
-            .then(data=>{
-                if(data.status === 200)
+        return ApiCaller.get('/profile')
+            .then(data => {
+                if (data.code === 200)
                     this.setCurrentUser(data.data)
-
+                else
+                    commonStore.removeToken()
             })
+            .catch(err=>commonStore.removeToken())
 
     }
 
